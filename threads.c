@@ -152,19 +152,29 @@ void scheduler(int new_state) {
     // your code goes here
 }
 
-void
-wake_thread(long threadid, long returnval)
-{
+
+
+/*! \brief Wake up a thread and set its context-saved r0 
+
+    This function could be used to complete a non-blocking SVC 
+    call that returns a value to its user program. For example, 
+    `syscall_read_word` expects its SVC call to return the 
+    word just read.
+
+    \param threadid Specifies the thread to wake up. You need 
+        to remove its TCB from sleepq, then push it to runq.
+
+    \param returnval The value to put into the thread's 
+        context-saved r0
+*/
+void wake_thread(long threadid, long returnval) {
     if (threadid < 0 || threadid >= NUM_THREADS) {
         log("ERROR: wake_thread: invalid threadid", threadid);
         return;
     }
     struct tcb *tp = &tcbs[threadid];
 
-    // your code goes here ... get it off the sleepq, put it on the runq
-    // and set it up so that the user process receives the return val in r0
-
-    return;
+    // your code goes here 
 }
 
 void
