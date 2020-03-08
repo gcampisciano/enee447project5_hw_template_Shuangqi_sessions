@@ -5,3 +5,6 @@
 
 ## Context switch triggered by timer interrupt
 ![](https://github.com/sklaw/enee447project5_hw_template_Shuangqi_sessions/blob/master/images_used_by_README/context_swtich_triggered_by_timer_interrupt.jpg)
+
+## Context swtich triggered by SVC call
+![](https://github.com/sklaw/enee447project5_hw_template_Shuangqi_sessions/blob/master/images_used_by_README/context_switch_triggered_by_svc_call.jpg)
