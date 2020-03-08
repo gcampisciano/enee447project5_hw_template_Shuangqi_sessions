@@ -18,7 +18,7 @@
     - you could create some threads that **won't** read/write any word from IO devices, e.g. do_blinker. (or you can define new functions to run as threads)
     - you could create these threads at the end of `init_kernel`
 - To test svc-interrupt-induced context switch:
-    - Create a thread that runs `run_shell` along with other threads. And see if they all work.
+    - Read p5.pdf to see how to test it.
 
 
 ## How is the first thread started
