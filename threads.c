@@ -157,9 +157,10 @@ void scheduler(int new_state) {
 /*! \brief Wake up a thread and set its context-saved r0 
 
     This function could be used to complete a non-blocking SVC 
-    call that returns a value to its user program. For example, 
-    `syscall_read_word` expects its SVC call to return the 
-    word just read.
+    call. If the SVC call is supposed to return a value to 
+    its user program (for example, `syscall_read_word` expects 
+    its SVC call to return the word just read), you should
+    put that return value in the thread's context-saved r0.
 
     \param threadid Specifies the thread to wake up. You need 
         to remove its TCB from sleepq, then push it to runq.

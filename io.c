@@ -288,6 +288,22 @@ do_dev_word(struct event *ep)
 	debug(DEBUG_MED, devtab[iop->device].devname, iop->data.num);
 
 	// your code goes here
-
+    // You need to do the following
+    //      - check whether the device is ready
+    //          for the IO opeartion by calling
+    //          the proper check function (read
+    //          the struct dev declaration to 
+    //          see which check function you 
+    //          should use)
+    //      - if the device is ready for the
+    //          IO operation, perform it. Then,
+    //          wake up the thread by calling
+    //          wake_thread (this function 
+    //          needs your implemenation)
+    //      - if the device is not ready, create
+    //          a new timeout event using the same
+    //          function and data so you would 
+    //          have the chance to check again
+    //          in the future
 }
 
