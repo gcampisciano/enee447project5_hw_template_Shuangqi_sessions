@@ -72,7 +72,7 @@ create_thread(char *name, void *text)
 	struct tcb *tp;
 
 	if (name == (char *)NULL) {
-		tp = &tcbs[0];
+		tp = null_thread;
 		tp->regs[REG_sp] = tp->stack;
 		tp->regs[REG_pc] = (long)text+4;
 		strcpyN(tp->name, "NULL thread", NAMESIZE);
@@ -101,9 +101,53 @@ create_thread(char *name, void *text)
 	return;
 }
 
-void
-scheduler(int new_state)
-{
+
+
+
+
+/*! \brief Determine the thread to run.
+
+    NOTE: You should NOT use the `tcb` variable in this function.
+        The operations on the TCBs should be carried out through
+        `runq`, `tfree` and `sleepq`.
+
+    \param new_state Determines the behaviour of the scheduler.
+        If new_state is THREAD_INIT, the scheduler should 
+        select the first thread to run from runq, then assign 
+        values to the following variables:
+                - stack_address_runningthread
+                    the address of the thread stack
+                - start_address_runningthread
+                    the start address of the thread
+                - tcb_address_runningthread
+                    the address of the thread TCB 
+                - runningthreadid
+                    the id of the thread
+                - active_thread
+                    the address of the thread TCB 
+                    
+        If new_state is THREAD_RUN, the scheduler should 
+        select a different thread to run from runq (if 
+        there are more than 1 threads in runq), then assign 
+        values to the following variables:
+                - tcb_address_runningthread
+                    the address of thread TCB 
+                - runningthreadid
+                    the id of the thread
+                - active_thread
+                    the address of the thread TCB 
+            - NOTE: you should select threads smartly to
+                avoid thread starvation
+            - NOTE: if there is no user thread in runq, 
+                you should run null_thread
+
+        If new_state is THREAD_SLEEP, the scheduler 
+        should put the currently running thread to sleep
+        by poping its TCB out of runq and pushing its TCB 
+        to sleepq. Then repeat the logic in THREAD_RUN to
+        select the next thread to run.
+*/
+void scheduler(int new_state) {
 
 // your code goes here
 
