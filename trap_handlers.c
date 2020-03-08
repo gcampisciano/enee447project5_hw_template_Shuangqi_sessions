@@ -49,6 +49,13 @@ trap_handler(unsigned long r0, unsigned long r1, unsigned long r2)
 			if (r0 < MAX_DEVICES) {
 
 				// your code goes here
+                // You should do the following:
+                //      - call scheduler(THREAD_SLEEP)
+                //      - create a timeout event with event
+                //          function `do_dev_word` and proper
+                //          event data that includes the
+                //          information needed to carry out
+                //          this IO operation
 
 			}
 			break;
@@ -56,11 +63,15 @@ trap_handler(unsigned long r0, unsigned long r1, unsigned long r2)
 			debug(DEBUG_LOW, "SYSCALL_WR_WORD dev  =", r0);
 			debug(DEBUG_LOW, "SYSCALL_WR_WORD data =", r1);
 			if (r0 < MAX_DEVICES) {
-				if (devtab[r0].wcheck()) {
-					return devtab[r0].write(r1);
-				}
 				
 				// your code goes here
+                // You should do the following:
+                //      - call scheduler(THREAD_SLEEP)
+                //      - create a timeout event with event
+                //          function `do_dev_word` and proper
+                //          event data that includes the
+                //          information needed to carry out
+                //          this IO operation
 
 			}
 			break;
