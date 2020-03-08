@@ -86,6 +86,7 @@ create_thread(char *name, void *text)
 
 		tp->regs[REG_sp] = tp->stack;
 		tp->regs[REG_pc] = (long)text+4;
+        tp->regs[REG_spsr] = 0x150; // USR_mode, IRQ_int on, FIG_int off, disables imprecise aborts
 		strcpyN(tp->name, name, NAMESIZE);
 		tp->name[NAMESIZE-1] = '\0';
 
@@ -138,7 +139,7 @@ create_thread(char *name, void *text)
                     the address of the thread TCB 
             - NOTE: you should select threads smartly to
                 avoid thread starvation
-            - NOTE: if there is no user thread in runq, 
+            - NOTE: if there is no thread in runq, 
                 you should run null_thread
 
         If new_state is THREAD_SLEEP, the scheduler 
@@ -148,29 +149,7 @@ create_thread(char *name, void *text)
         select the next thread to run.
 */
 void scheduler(int new_state) {
-
-// your code goes here
-
-	debug(DEBUG_HI, "scheduling out:",NOVAL);
-	debug(DEBUG_HI, out->name, out->threadid);
-	debug(DEBUG_HI, " stack =", out->regs[REG_sp]);
-	debug(DEBUG_HI, " start =", out->regs[REG_pc]-4);
-	debug(DEBUG_HI, " tcb   =", (long)out->regs);
-	debug(DEBUG_HI, " spsr  =", out->regs[REG_spsr]);
-
-	// you will find this useful
-	if (in->regs[REG_spsr] == 0 && out != (struct tcb *)NULL) {
-		in->regs[REG_spsr] = out->regs[REG_spsr] & 0xFFF;
-	}
-
-	debug(DEBUG_HI, "scheduling in:",NOVAL);
-	debug(DEBUG_HI, in->name, in->threadid);
-	debug(DEBUG_HI, " stack =", in->regs[REG_sp]);
-	debug(DEBUG_HI, " start =", in->regs[REG_pc]-4);
-	debug(DEBUG_HI, " tcb   =", (long)in->regs);
-	debug(DEBUG_HI, " spsr  =", in->regs[REG_spsr]);
-
-	return;
+    // your code goes here
 }
 
 void
