@@ -1,5 +1,8 @@
 # Project 5
 
+# Readings 
+- [p5.pdf](https://github.com/sklaw/enee447project5_hw_template_Shuangqi_sessions/blob/master/p5.pdf)
+
 # Places that require your implementaion
 - For timer-interrupt-induced context switch to work
     - [scheduler](https://github.com/sklaw/enee447project5_hw_template_Shuangqi_sessions/blob/master/threads.c#L109-L153): you need to implement `THREAD_INIT` and `THREAD_RUN`.
