@@ -18,7 +18,8 @@
     - uncomment the part for testing timer-interrupt context switch [here](https://github.com/sklaw/enee447project5_hw_template_Shuangqi_sessions/blob/master/kernel.c#L66-L72)
 - To test svc-interrupt-induced context switch:
     - uncomment the part for testing svc-interrupt context switch [here](https://github.com/sklaw/enee447project5_hw_template_Shuangqi_sessions/blob/master/kernel.c#L66-L72)
-
+    - start a thread in shell (for example do_blinker) and see if they are running simultaneously. 
+        - read p5.pdf to learn how to start a thread in shell
 
 ## How is the first thread started
 ![](https://github.com/sklaw/enee447project5_hw_template_Shuangqi_sessions/blob/master/images_used_by_README/how_the_first_thread_is_started.jpg)
