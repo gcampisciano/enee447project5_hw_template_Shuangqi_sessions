@@ -262,3 +262,7 @@ extern void enable_irq ( void );
 extern void enable_fiq ( void );
 extern void disable_irq ( void );
 extern void disable_fiq ( void );
+
+extern void do_blinker();
+extern void thread_func_1();
+extern void thread_func_2();
