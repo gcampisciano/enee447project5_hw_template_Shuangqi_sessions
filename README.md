@@ -15,10 +15,9 @@
 
 ## How to test your code
 - To test timer-interrupt-induced context switch:
-    - you could create some threads that **won't** read/write any word from/to IO devices, e.g. do_blinker. (or you can define new functions to run as threads)
-    - you could create these threads in `init_kernel` after `init_threads();`.
+    - uncomment the part for testing timer-interrupt context switch [here](https://github.com/sklaw/enee447project5_hw_template_Shuangqi_sessions/blob/master/kernel.c#L66-L72)
 - To test svc-interrupt-induced context switch:
-    - Read p5.pdf to see how to test it.
+    - uncomment the part for testing svc-interrupt context switch [here](https://github.com/sklaw/enee447project5_hw_template_Shuangqi_sessions/blob/master/kernel.c#L66-L72)
 
 
 ## How is the first thread started
