@@ -108,7 +108,7 @@ create_thread(char *name, void *text)
 
 /*! \brief Determine the thread to run.
 
-    NOTE: You should NOT use the `tcb` variable in this function.
+    NOTE: You should NOT use the `tcbs` variable in this function.
         The operations on the TCBs should be carried out through
         `runq`, `tfree` and `sleepq`.
 
@@ -121,7 +121,7 @@ create_thread(char *name, void *text)
                 - start_address_runningthread
                     the start address of the thread
                 - tcb_address_runningthread
-                    the address of the thread TCB 
+                    the address of `regs` of the thread TCB 
                 - runningthreadid
                     the id of the thread
                 - active_thread
@@ -132,7 +132,7 @@ create_thread(char *name, void *text)
         there are more than 1 threads in runq), then assign 
         values to the following variables:
                 - tcb_address_runningthread
-                    the address of thread TCB 
+                    the address of `regs` of the thread TCB 
                 - runningthreadid
                     the id of the thread
                 - active_thread
