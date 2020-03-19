@@ -80,3 +80,17 @@ void thread_func_2() {
 		}
     }
 }
+
+
+void thread_func_3() {
+	uint64_t now_usec;
+	uint64_t wait_until;
+	while (1) {
+        uart_puts("thread_func_3 running\n");
+        syscall_read_cbuffer(DEV_CLOCK, &now_usec, 8);
+        wait_until = now_usec + (700 * 1000);
+		while (now_usec < wait_until) {
+			syscall_read_cbuffer(DEV_CLOCK, &now_usec, 8);
+		}
+    }
+}

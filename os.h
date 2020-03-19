@@ -266,3 +266,4 @@ extern void disable_fiq ( void );
 extern void do_blinker();
 extern void thread_func_1();
 extern void thread_func_2();
+extern void thread_func_3();

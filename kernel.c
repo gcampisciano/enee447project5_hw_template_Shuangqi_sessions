@@ -67,9 +67,9 @@ init_kernel()
 	//create_thread("shell", run_shell);
 
     // To test timer-induced context switch, uncomment the following lines
-	create_thread("blinker_1", do_blinker);
 	create_thread("thread_func_1", thread_func_1);
 	create_thread("thread_func_2", thread_func_2);
+	create_thread("thread_func_3", thread_func_3);
 
     // wake up
 	log("...", NOVAL);
