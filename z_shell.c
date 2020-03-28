@@ -110,7 +110,8 @@ run_shell()
 			syscall_write_word(DEV_CONSOLE, ch);
 
 			input_buffer[i] = (char)(ch & 0xff);
-			input_buffer[i+1] = '\0';
+			input_buffer[i+1] = ' ';
+			input_buffer[i+2] = '\0';
 		}
 		puts("\n");
 
@@ -174,11 +175,12 @@ run_shell()
 				if (led) {
 					puts("CMD_LED - off\n");
 					syscall_write_word(DEV_LED, 0);
+                    led = 0;
 				} else {
 					puts("CMD_LED - on\n");
 					syscall_write_word(DEV_LED, 1);
+                    led = 1;
 				}
-				led = ~led;
 				break;
 			case CMD_EXIT:
 				puts("CMD_EXIT exiting ...\n");

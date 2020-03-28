@@ -75,6 +75,7 @@ create_thread(char *name, void *text)
         tp = null_thread;
         tp->regs[REG_sp] = tp->stack;
         tp->regs[REG_pc] = (long)text+4;
+        tp->regs[REG_spsr] = 0x150; // USR_mode, IRQ_int on, FIG_int off, disables imprecise aborts
         strcpyN(tp->name, "NULL thread", NAMESIZE);
         tp->name[NAMESIZE-1] = '\0';
     } else {
