@@ -29,6 +29,7 @@ struct tcb *runq;
 llobject_t SQ;
 struct tcb *sleepq;
 
+int thread_id_count = 1;
 
 void
 dump_tcb(long threadid)
@@ -152,12 +153,15 @@ create_thread(char *name, void *text)
 void scheduler(int new_state) {
     // your code goes here
     if(new_state == THREAD_INIT) {
+        // Select first TCB in runq
         struct tcb *ptr = LL_FIRST(runq);
-        // assign stack address
-        // assign start address
-        // assign tcb address
-        // assign id of thread
-        // assign address of thread TCB
+        
+        //assign Thread ID as a sequence number
+        ptr->threadid = thread_id_count;
+        thread_id_count = thread_id_count + 1;
+        
+        // Assign addresses
+        
     } else if(new_state == THREAD_RUN) {
         if(LL_IS_EMPTY(runq)) {
             active_thread = null_thread;
@@ -165,9 +169,8 @@ void scheduler(int new_state) {
             // select thread to run
             active_thread = LL_FIRST(runq);
         }
-        // assign tcb adress
-        // assign Thread ID
-        // assign address of Thread TCB
+        // Assign addresses
+        
     } else if(new_state == THREAD_SLEEP) {
         // sleep active thread
         struct tcb *ptr = LL_POP(runq);
@@ -178,6 +181,8 @@ void scheduler(int new_state) {
         } else {
             active_thread = LL_FIRST(runq);
         }
+        // Assign Addresses
+        
     }
 }
 
