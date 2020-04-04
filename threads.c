@@ -182,9 +182,7 @@ void scheduler(int new_state) {
         // Assign Thread ID
         runningthreadid = active_thread->threadid;
    
-        // Assign addresses
-        start_address_runningthread = active_thread->regs[REG_lr];
-        stack_address_runningthread = active_thread->regs[REG_pc];
+        // Assign TCB address
         tcb_address_runningthread = active_thread->regs;
     } else if(new_state == THREAD_SLEEP) {
         // sleep active_thread
@@ -203,9 +201,7 @@ void scheduler(int new_state) {
         // Assign Thread ID
         runningthreadid = active_thread->threadid;
    
-        // Assign addresses
-        start_address_runningthread = active_thread->regs[REG_lr];
-        stack_address_runningthread = active_thread->regs[REG_pc];
+        // Assign TCB address
         tcb_address_runningthread = active_thread->regs;   
     }
 }
