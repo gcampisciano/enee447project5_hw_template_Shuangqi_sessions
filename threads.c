@@ -156,11 +156,12 @@ void scheduler(int new_state) {
         // Select first TCB in runq
         struct tcb *ptr = LL_FIRST(runq);
         
-        //assign Thread ID as a sequence number
-        ptr->threadid = thread_id_count;
-        thread_id_count = thread_id_count + 1;
+        // Assign Thread ID
+        runningthreadid = ptr->threadid;
         
         // Assign addresses
+        stack_address_runningthread = ptr->stack;
+        
         
     } else if(new_state == THREAD_RUN) {
         if(LL_IS_EMPTY(runq)) {
@@ -170,6 +171,8 @@ void scheduler(int new_state) {
             active_thread = LL_FIRST(runq);
         }
         // Assign addresses
+        runningthreadid = active_thread->threadid;
+        stack_address_runningthread = active_thread->stack;
         
     } else if(new_state == THREAD_SLEEP) {
         // sleep active thread
