@@ -167,8 +167,12 @@ void scheduler(int new_state) {
         if(LL_IS_EMPTY(runq)) {
             active_thread = null_thread;
         } else {
-            // select thread to run
-            active_thread = LL_FIRST(runq);
+            // Take first thread from runq
+            struct tcb *tp = LL_POP(runq);
+            // Set it to active Thread
+            active_thread = tp;
+            // Return the Thread to back of the queue to prevent starvation
+            LL_APPEND(runq, tp);
         }
         // Assign Thread ID
         runningthreadid = active_thread->threadid;
@@ -181,11 +185,15 @@ void scheduler(int new_state) {
         // sleep active thread
         struct tcb *ptr = LL_POP(runq);
         LL_PUSH(sleepq, ptr);
-        // Repeat Logic in Thread_Run to select new Thread
+        
+        // Select New Thread
         if(LL_IS_EMPTY(runq)) {
             active_thread = null_thread;
         } else {
-            active_thread = LL_FIRST(runq);
+            // Repeat RUN_THREAD Logic
+            struct tcb *tp = LL_POP(runq);
+            active_thread = tp;
+            LL_APPEND(runq, tp);
         }
         // Assign Thread ID
         runningthreadid = active_thread->threadid;
