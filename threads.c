@@ -152,19 +152,18 @@ create_thread(char *name, void *text)
 void scheduler(int new_state) {
     // your code goes here
     if(new_state == THREAD_INIT) {
-        struct tcb *ptr = LL_POP(runq);
+        struct tcb *ptr = LL_FIRST(runq);
         // assign stack address
         // assign start address
         // assign tcb address
         // assign id of thread
         // assign address of thread TCB
-        LL_PUSH(runq, ptr);
     } else if(new_state == THREAD_RUN) {
         if(LL_IS_EMPTY(runq)) {
-            // run null_thread
+            active_thread = null_thread;
         } else {
             // select thread to run
-            // try to avoid starvation
+            active_thread = LL_FIRST(runq);
         }
         // assign tcb adress
         // assign Thread ID
@@ -174,6 +173,11 @@ void scheduler(int new_state) {
         struct tcb *ptr = LL_POP(runq);
         LL_PUSH(sleepq, ptr);
         // Repeat Logic in Thread_Run to select new Thread
+        if(LL_IS_EMPTY(runq)) {
+            active_thread = null_thread;
+        } else {
+            active_thread = LL_FIRST(runq);
+        }
     }
 }
 
