@@ -154,15 +154,15 @@ void scheduler(int new_state) {
     // your code goes here
     if(new_state == THREAD_INIT) {
         // Select first TCB in runq
-        struct tcb *ptr = LL_FIRST(runq);
+        struct tcb *tp = LL_FIRST(runq);
         
         // Assign Thread ID
-        runningthreadid = ptr->threadid;
-        
+        runningthreadid = tp->threadid;
+   
         // Assign addresses
-        stack_address_runningthread = ptr->stack;
-        
-        
+        start_address_runningthread = tp->regs[REG_lr];
+        stack_address_runningthread = tp->regs[REG_pc];
+        tcb_address_runningthread = tp->regs;
     } else if(new_state == THREAD_RUN) {
         if(LL_IS_EMPTY(runq)) {
             active_thread = null_thread;
@@ -170,10 +170,13 @@ void scheduler(int new_state) {
             // select thread to run
             active_thread = LL_FIRST(runq);
         }
-        // Assign addresses
+        // Assign Thread ID
         runningthreadid = active_thread->threadid;
-        stack_address_runningthread = active_thread->stack;
-        
+   
+        // Assign addresses
+        start_address_runningthread = active_thread->regs[REG_lr];
+        stack_address_runningthread = active_thread->regs[REG_pc];
+        tcb_address_runningthread = active_thread->regs;
     } else if(new_state == THREAD_SLEEP) {
         // sleep active thread
         struct tcb *ptr = LL_POP(runq);
@@ -184,8 +187,13 @@ void scheduler(int new_state) {
         } else {
             active_thread = LL_FIRST(runq);
         }
-        // Assign Addresses
-        
+        // Assign Thread ID
+        runningthreadid = active_thread->threadid;
+   
+        // Assign addresses
+        start_address_runningthread = active_thread->regs[REG_lr];
+        stack_address_runningthread = active_thread->regs[REG_pc];
+        tcb_address_runningthread = active_thread->regs;   
     }
 }
 
