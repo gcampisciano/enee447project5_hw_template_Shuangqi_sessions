@@ -163,14 +163,19 @@ void scheduler(int new_state) {
         start_address_runningthread = tp->regs[REG_lr];
         stack_address_runningthread = tp->regs[REG_pc];
         tcb_address_runningthread = tp->regs;
+        
+        //Assign Active Thread
+        active_thread = tp;
     } else if(new_state == THREAD_RUN) {
         if(LL_IS_EMPTY(runq)) {
             active_thread = null_thread;
         } else {
             // Take first thread from runq
             struct tcb *tp = LL_POP(runq);
+            
             // Set it to active Thread
             active_thread = tp;
+            
             // Return the Thread to back of the queue to prevent starvation
             LL_APPEND(runq, tp);
         }
@@ -182,9 +187,9 @@ void scheduler(int new_state) {
         stack_address_runningthread = active_thread->regs[REG_pc];
         tcb_address_runningthread = active_thread->regs;
     } else if(new_state == THREAD_SLEEP) {
-        // sleep active thread
-        struct tcb *ptr = LL_POP(runq);
-        LL_PUSH(sleepq, ptr);
+        // sleep active_thread
+        struct tcb *tp = LL_DETACH(runq, active_thread)
+        LL_PUSH(sleepq, tp);
         
         // Select New Thread
         if(LL_IS_EMPTY(runq)) {
