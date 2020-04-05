@@ -305,5 +305,20 @@ do_dev_word(struct event *ep)
     //          function and data so you would 
     //          have the chance to check again
     //          in the future
+	
+	// Write Case
+	if(ep->data != NULL) {
+		if(rcheck()) {
+			// execute event
+		} else {
+			create_timeoutq_event(ONE_USEC, 0, 0, do_dev_word, ep);
+		}
+	} else {
+		if(wcheck()) {
+			// execute event
+		} else {
+			create_timeoutq_event(ONE_USEC, 0, 0, do_dev_word, ep);
+		}
+	}
 }
 
