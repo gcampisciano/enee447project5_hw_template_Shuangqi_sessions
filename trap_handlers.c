@@ -58,8 +58,8 @@ trap_handler(unsigned long r0, unsigned long r1, unsigned long r2)
                 //          this IO operation
                 
                 scheduler(THREAD_SLEEP);
-                // create_timeoutq_event(ONE_SEC, ONE_SEC, 5, do_dev_word, param_data); 
-
+                create_timeoutq_event(ONE_SEC, ONE_SEC, 5, do_dev_word, data); 
+                return 0;
             }
             break;
         case SYSCALL_WR_WORD:
@@ -77,8 +77,8 @@ trap_handler(unsigned long r0, unsigned long r1, unsigned long r2)
                 //          this IO operation
                 
                 scheduler(THREAD_SLEEP);
-                // create_timeoutq_event(ONE_SEC, ONE_SEC, 5, do_dev_word, param_data);
-
+                create_timeoutq_event(ONE_SEC, ONE_SEC, 5, do_dev_word, r1);
+                return 0;
             }
             break;
         case SYSCALL_RD_CBUF:
