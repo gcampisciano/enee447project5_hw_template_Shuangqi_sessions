@@ -58,7 +58,8 @@ trap_handler(unsigned long r0, unsigned long r1, unsigned long r2)
                 //          this IO operation
                 
                 scheduler(THREAD_SLEEP);
-                create_timeoutq_event(ONE_SEC, ONE_SEC, 5, do_dev_word, data); 
+                // Create timeoutq, event, insert event, 
+                create_timeoutq_event(ONE_USEC, 0, 0, do_dev_word, ep); 
                 return 0;
             }
             break;
@@ -77,7 +78,8 @@ trap_handler(unsigned long r0, unsigned long r1, unsigned long r2)
                 //          this IO operation
                 
                 scheduler(THREAD_SLEEP);
-                create_timeoutq_event(ONE_SEC, ONE_SEC, 5, do_dev_word, r1);
+                // Create timeoutq, event, insert event
+                create_timeoutq_event(ONE_USEC, 0, 0, do_dev_word, ep);
                 return 0;
             }
             break;
