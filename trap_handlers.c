@@ -56,6 +56,9 @@ trap_handler(unsigned long r0, unsigned long r1, unsigned long r2)
                 //          event data that includes the
                 //          information needed to carry out
                 //          this IO operation
+                
+                scheduler(THREAD_SLEEP);
+                // create_timeoutq_event(ONE_SEC, ONE_SEC, 5, do_dev_word, param_data); 
 
             }
             break;
@@ -72,6 +75,9 @@ trap_handler(unsigned long r0, unsigned long r1, unsigned long r2)
                 //          event data that includes the
                 //          information needed to carry out
                 //          this IO operation
+                
+                scheduler(THREAD_SLEEP);
+                // create_timeoutq_event(ONE_SEC, ONE_SEC, 5, do_dev_word, param_data);
 
             }
             break;
