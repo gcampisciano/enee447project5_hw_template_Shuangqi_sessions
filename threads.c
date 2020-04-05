@@ -227,9 +227,18 @@ void wake_thread(long threadid, long returnval) {
         log("ERROR: wake_thread: invalid threadid", threadid);
         return;
     }
-    struct tcb *tp = &tcbs[threadid];
-
-    // your code goes here 
+    struct tcb *tp = &tcbs[threadid]; 
+    
+    // Remove Thread from sleepq
+    LL_DETACH(sleepq, tp);
+    
+    // If Returnval is not NULL, set r0 to returnval
+    if(returnval) {
+        tp->regs[0] = returnval;
+    }
+    
+    // Push Thread to runq
+    LL_PUSH(runq, tp);
 }
 
 void
