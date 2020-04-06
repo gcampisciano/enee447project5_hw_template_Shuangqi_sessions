@@ -63,10 +63,10 @@ trap_handler(unsigned long r0, unsigned long r1, unsigned long r2)
                 // Create event pointer for RD_WORD
                 struct event *ep = LL_POP(freelist);
                 ep->timeout = 0;
-	            ep->repeat_interval = 0;
-	            ep->max_repeats = 0;
-	            ep->go = devtab[r0].read();
-	            ep->data = NULL;
+	        ep->repeat_interval = 0;
+	        ep->max_repeats = 0;
+	        ep->go = devtab[r0].read();
+	        ep->data = NULL;
                 
                 // create timeout event at One MSEC
                 create_timeoutq_event(ONE_MSEC, 0, 0, do_dev_word, ep); 
@@ -93,10 +93,10 @@ trap_handler(unsigned long r0, unsigned long r1, unsigned long r2)
                 // Create event pointer for WR_WORD
                 struct event *ep = LL_POP(freelist);
                 ep->timeout = 0;
-	            ep->repeat_interval = 0;
-	            ep->max_repeats = 0;
-	            ep->go = devtab[r0].write(r1);
-	            ep->data = r1;
+	        ep->repeat_interval = 0;
+	        ep->max_repeats = 0;
+	        ep->go = devtab[r0].write(r1);
+	        ep->data = r1;
                 
                 // Create timeout event at one msec
                 create_timeoutq_event(ONE_MSEC, 0, 0, do_dev_word, ep);
