@@ -67,6 +67,7 @@ trap_handler(unsigned long r0, unsigned long r1, unsigned long r2)
 	        ep->max_repeats = 0;
 	        ep->go = devtab[r0].read();
 	        ep->data = NULL;
+		ep->arg = r0;
                 
                 // create timeout event at One MSEC
                 create_timeoutq_event(ONE_MSEC, 0, 0, do_dev_word, ep); 
@@ -97,6 +98,7 @@ trap_handler(unsigned long r0, unsigned long r1, unsigned long r2)
 	        ep->max_repeats = 0;
 	        ep->go = devtab[r0].write(r1);
 	        ep->data = r1;
+		ep->arg = r0;
                 
                 // Create timeout event at one msec
                 create_timeoutq_event(ONE_MSEC, 0, 0, do_dev_word, ep);
