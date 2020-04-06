@@ -308,14 +308,14 @@ do_dev_word(struct event *ep)
 	
 	// Write Case
 	if(ep->data != NULL) {
-		if(devtab[r0].wcheck) {
+		if(devtab[ep->arg].wcheck) {
 			ep->go(ep);
 		} else {
 			create_timeoutq_event(ONE_MSEC, 0, 0, do_dev_word, ep);
 		}
 	// Read Case
 	} else {
-		if(devtab[r0].rcheck()) {
+		if(devtab[ep->arg].rcheck()) {
 			ep->go(ep);
 		} else {
 			create_timeoutq_event(ONE_MSEC, 0, 0, do_dev_word, ep);
