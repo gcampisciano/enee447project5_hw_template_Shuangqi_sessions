@@ -57,9 +57,19 @@ trap_handler(unsigned long r0, unsigned long r1, unsigned long r2)
                 //          information needed to carry out
                 //          this IO operation
                 
+                // Sleep Thread
                 scheduler(THREAD_SLEEP);
-                // Create timeoutq, event, insert event, 
-                create_timeoutq_event(ONE_USEC, 0, 0, do_dev_word, ep); 
+                
+                // Create event pointer for RD_WORD
+                struct event *ep = LL_POP(freelist);
+                ep->timeout = 0;
+	            ep->repeat_interval = 0;
+	            ep->max_repeats = 0;
+	            ep->go = devtab[r0].read();
+	            ep->data = NULL;
+                
+                // create timeout event at One MSEC
+                create_timeoutq_event(ONE_MSEC, 0, 0, do_dev_word, ep); 
                 return 0;
             }
             break;
@@ -77,9 +87,19 @@ trap_handler(unsigned long r0, unsigned long r1, unsigned long r2)
                 //          information needed to carry out
                 //          this IO operation
                 
+                // Sleep Thread
                 scheduler(THREAD_SLEEP);
-                // Create timeoutq, event, insert event
-                create_timeoutq_event(ONE_USEC, 0, 0, do_dev_word, ep);
+                
+                // Create event pointer for WR_WORD
+                struct event *ep = LL_POP(freelist);
+                ep->timeout = 0;
+	            ep->repeat_interval = 0;
+	            ep->max_repeats = 0;
+	            ep->go = devtab[r0].write(r1);
+	            ep->data = r1;
+                
+                // Create timeout event at one msec
+                create_timeoutq_event(ONE_MSEC, 0, 0, do_dev_word, ep);
                 return 0;
             }
             break;
