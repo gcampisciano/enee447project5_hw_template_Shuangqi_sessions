@@ -308,16 +308,17 @@ do_dev_word(struct event *ep)
 	
 	// Write Case
 	if(ep->data != NULL) {
-		if(rcheck()) {
-			// execute event
+		if(devtab[r0].wcheck) {
+			ep->go(ep);
 		} else {
-			create_timeoutq_event(ONE_USEC, 0, 0, do_dev_word, ep);
+			create_timeoutq_event(ONE_MSEC, 0, 0, do_dev_word, ep);
 		}
+	// Read Case
 	} else {
-		if(wcheck()) {
-			// execute event
+		if(devtab[r0].rcheck()) {
+			ep->go(ep);
 		} else {
-			create_timeoutq_event(ONE_USEC, 0, 0, do_dev_word, ep);
+			create_timeoutq_event(ONE_MSEC, 0, 0, do_dev_word, ep);
 		}
 	}
 }
